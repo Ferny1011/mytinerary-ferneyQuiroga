@@ -1,0 +1,20 @@
+.slick-slide div{
+    margin: 0 1rem;
+    display: flex !important;
+    flex-direction: column;
+
+}
+
+.slick-dots{
+    bottom: 0 !important;
+}
+
+.slick-dots li.slick-active button::before{
+    color: #F08CAE !important;
+}
+
+.slick-dots li button::before{
+    color: #fff !important;
+    font-size: 1rem !important;
+    top: 2rem  !important;
+}
