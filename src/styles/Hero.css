@@ -1,0 +1,46 @@
+.left-hero>h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.left-hero>p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Fira Sans', sans-serif;
+    color: #0D1F2D;
+}
+
+
+@media (max-width: 768px) {
+
+    .hero{
+        flex-direction: column-reverse;
+        align-items: center;
+        margin: 2rem !important;
+    }
+
+    .left-hero>h1 {
+        font-size: 2.5rem;
+    }
+    .left-hero{
+        margin-top: 20px;
+        text-align: center;
+        align-items: center;
+    }
+    .left-hero a{
+        width: 100%;
+    }
+    .left-hero, .right-hero{
+        width: 100%;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .left-hero a{
+        width: 50%;
+    }
+}

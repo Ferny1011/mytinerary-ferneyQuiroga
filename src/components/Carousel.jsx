@@ -99,7 +99,8 @@ const Carousel = () => {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToScroll: 1,
+                    dots: false
                 }
             }
         ]
@@ -111,9 +112,9 @@ const Carousel = () => {
                 {slides.map((slide, index) => {
                     return (
                         <div key={index} className='flex items-center'>
-                            <img className='w-64 h-32 rounded ' src={slide.url} alt={slide.city} />
-                            <h3 className='text-center'>{slide.city}</h3>
-                            <p className='text-center'>{slide.country}</p>
+                            <img className='w-64 h-32 rounded shadow-md shadow-[#F08CAE]' src={slide.url} alt={slide.city} />
+                            <h3 className="text-center mt-3 text-[#FFEAD0] city-title">{slide.city}</h3>
+                            <p className='text-center text-[#F08CAE]'>{slide.country}</p>
                         </div>
                     )
                 }

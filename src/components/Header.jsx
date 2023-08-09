@@ -16,7 +16,7 @@ const Header = () => {
                 <h1>MyTinerary</h1>
             </div>
             <nav className='flex flex-row w-1/4 justify-evenly items-center'>
-                {links.map((link, i) => <Link key={i} to={link.to} title={link.title} />)}
+                {links.map((link, i) => <Link key={i} to={link.to} title={link.title} className={'w-20 flex justify-center hover:text-[#FFEAD0]'}/>)}
             </nav>
         </header>
     )
