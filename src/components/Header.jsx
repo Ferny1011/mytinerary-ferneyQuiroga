@@ -1,9 +1,9 @@
 import React from 'react'
-import Link from './Link'
+import { Link } from 'react-router-dom'
 import '../styles/Header.css'
 
 const links = [
-    {title: 'Home', to: '/home'},
+    {title: 'Home', to: '/'},
     {title: 'Cities', to: '/cities'},
     {title: 'Login', to: '/login'},
 ]   
@@ -16,7 +16,7 @@ const Header = () => {
                 <h1>MyTinerary</h1>
             </div>
             <nav className='flex flex-row w-1/4 justify-evenly items-center'>
-                {links.map((link, i) => <Link key={i} to={link.to} title={link.title} className={'w-20 flex justify-center hover:text-[#FFEAD0]'}/>)}
+                {links.map((link, i) => <Link key={i} to={link.to} className={'w-20 flex justify-center hover:text-[#FFEAD0]'}>{link.title}</Link>)}
             </nav>
         </header>
     )
