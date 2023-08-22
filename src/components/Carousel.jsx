@@ -1,72 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import '../styles/Carousel.css'
 
 const Carousel = () => {
-    const slides = [
-        {
-            url: '/public/tokyo.jpg',
-            city: 'Tokyo',
-            country: 'Japan'
-        },
-        {
-            url: '/public/newYork.jpg',
-            city: 'New York',
-            country: 'USA'
-        },
-        {
-            url: '/public/paris.jpg',
-            city: 'Paris',
-            country: 'France'
-        },
-        {
-            url: '/public/seoul.jpg',
-            city: 'Seoul',
-            country: 'South Korea'
-        },
-        {
-            url: '/public/venice.jpg',
-            city: 'Venice',
-            country: 'Italy'
-        },
-        {
-            url: '/public/brazil.jpg',
-            city: 'Rio de Janeiro',
-            country: 'Brazil'
-        },
-        {
-            url: '/public/cartagena.jpg',
-            city: 'Cartagena',
-            country: 'Colombia'
-        },
-        {
-            url: '/public/beijing.jpg',
-            city: 'Beijing',
-            country: 'China'
-        },
-        {
-            url: '/public/cusco.jpg',
-            city: 'Cusco',
-            country: 'Peru'
-        },
-        {
-            url: '/public/cairo.jpg',
-            city: 'Cairo',
-            country: 'Egypt'
-        },
-        {
-            url: '/public/istanbul.jpg',
-            city: 'Istanbul',
-            country: 'Turkey'
-        },
-        {
-            url: '/public/london.jpg',
-            city: 'London',
-            country: 'England'
-        },
-    ];
+
+    const [cities, setCities] = useState();
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/cities?name=')
+            .then(res => setCities(res.data.cities))
+            .catch(err => console.log(err))
+    }, []);
+
 
     var settings = {
         dots: true,
@@ -109,12 +56,12 @@ const Carousel = () => {
     return (
         <div className="h-64 px-16 flex flex-col justify-center bg-slate-700">
             <Slider {...settings} >
-                {slides.map((slide, index) => {
+                {cities?.map((city, index) => {
                     return (
                         <div key={index} className='flex items-center'>
-                            <img className='w-64 h-32 rounded shadow-md shadow-[#F08CAE]' src={slide.url} alt={slide.city} />
-                            <h3 className="text-center mt-3 text-[#FFEAD0] city-title">{slide.city}</h3>
-                            <p className='text-center text-[#F08CAE]'>{slide.country}</p>
+                            <img className='w-64 h-32 rounded shadow-md shadow-[#F08CAE]' src={city.image} alt={city.name} />
+                            <h3 className="text-center mt-3 text-[#FFEAD0] city-title">{city.name}</h3>
+                            <p className='text-center text-[#F08CAE]'>{city.country}</p>
                         </div>
                     )
                 }
