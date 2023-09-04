@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import CityCard from '../components/CityCard'
 import axios from 'axios'
 
 const Cities = () => {
     const [cities, setCities] = useState();
+
+    let inputSearch = useRef();
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/cities?name=')
@@ -11,13 +13,16 @@ const Cities = () => {
             .catch(err => console.log(err))
     }, []);
 
-    const handleInputChange = async (e) => {
+    const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/cities?name=${e.target.value}`);
+            const response = await axios.get(`http://localhost:3000/api/cities?name=${inputSearch.current.value}`);
             setCities(response.data.cities);
         } catch (error) {
-            console.log(error)
-            setCities(null)
+            if (error.response.status === 404) {
+                setCities([]);
+            } else {
+                console.log(error);
+            }
         }
     }
 
@@ -31,10 +36,22 @@ const Cities = () => {
                 </div>
             </div>
             <div className='flex justify-center my-16 items-center'>
-                <input onChange={handleInputChange} className='w-2/4 p-2 rounded-lg focus:outline-[#F08CAE]' type="text" placeholder='Search your city...' />
+                <input ref={inputSearch} className='w-2/4 p-2 rounded-lg focus:outline-[#F08CAE]' type="text" placeholder='Search your city...' />
+                <button onClick={handleSearch} type="submit" className="flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-[#FFEAD0] bg-[#F08CAE] rounded-lg border hover:bg-[#0D1F2D]">
+                    <svg className="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </button>
             </div>
             <div className='flex flex-wrap justify-center gap-5 mb-16'>
-                {cities?.length !=null ? cities?.map(city => <CityCard key={city._id} id={city._id} name={city.name} country={city.country} image={city.image} />) : <h1 className='text-4xl text-[#F08CAE]'>No cities found</h1>}
+                {
+                cities?.length > 0 ? 
+                cities?.map((city) =>{
+                    return (
+                        <CityCard key={city._id} id={city._id} name={city.name} country={city.country} image={city.image} />
+                    )
+                }) 
+                : <h1 className='text-4xl text-[#F08CAE]'>No cities found</h1>}
             </div>
         </section>
     )
