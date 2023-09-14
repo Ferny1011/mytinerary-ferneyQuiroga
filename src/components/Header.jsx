@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 const Header = () => {
 
-    const user = useSelector(store => store.userReducer)
+    const user = useSelector((store) => store.userReducer.user)
     const [openProfile, setOpenProfile] = useState(false)
 
 
@@ -24,7 +24,7 @@ const Header = () => {
             </div>
             <nav className='flex flex-row w-1/4 justify-evenly items-center'>
                 {links.map((link, i) => {
-                    if (!user.logged) {
+                    if (!user) {
                         return <Link key={i} to={link.to} className={'w-20 flex justify-center hover:text-[#FFEAD0]'}>{link.title}</Link>
                     }
                     else {

@@ -1,29 +1,18 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { userLoggedIn, userLoggedOut } from "../actions/userActions";
+import { userLoggedIn } from "../actions/userActions";
 
 const initialState = {
-    logged: false,
-    name: "User",
-    photo: "/public/userDefult.png"
+    user: null,
+    token: null
 };
 
 const userReducer = createReducer(initialState,
     (builder) => builder
-        .addCase(userLoggedIn, (state, action) => {
+        .addCase(userLoggedIn.fulfilled, (state, action) => {
             return {
                 ...state,
-                logged: true,
-                name: action.payload.name,
-                photo: action.payload.photo
-            };
-        }
-        )
-        .addCase(userLoggedOut, (state, action) => {
-            return {
-                ...state,
-                logged: false,
-                name: "User",
-                photo: "/public/userDefult.png"
+                user: action.payload.user,
+                token: action.payload.token
             };
         }
         )
