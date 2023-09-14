@@ -1,29 +1,26 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import CityCard from '../components/CityCard'
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { filter_cities, get_cities } from '../store/actions/cityActions'
+
 
 const Cities = () => {
-    const [cities, setCities] = useState();
+
+
+    const cities = useSelector((store) => store.cityReducer.cities);
+
+    const dispatch = useDispatch();
 
     let inputSearch = useRef();
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/cities?name=')
-            .then(res => setCities(res.data.cities))
-            .catch(err => console.log(err))
+        dispatch(get_cities());
     }, []);
 
-    const handleSearch = async () => {
-        try {
-            const response = await axios.get(`http://localhost:3000/api/cities?name=${inputSearch.current.value}`);
-            setCities(response.data.cities);
-        } catch (error) {
-            if (error.response.status === 404) {
-                setCities([]);
-            } else {
-                console.log(error);
-            }
-        }
+    const handleSearch = () => {
+        dispatch(filter_cities({
+            name: inputSearch.current.value
+        }))
     }
 
     return (
@@ -45,13 +42,13 @@ const Cities = () => {
             </div>
             <div className='flex flex-wrap justify-center gap-5 mb-16'>
                 {
-                cities?.length > 0 ? 
-                cities?.map((city) =>{
-                    return (
-                        <CityCard key={city._id} id={city._id} name={city.name} country={city.country} image={city.image} />
-                    )
-                }) 
-                : <h1 className='text-4xl text-[#F08CAE]'>No cities found</h1>}
+                    cities?.length > 0 ?
+                        cities?.map((city) => {
+                            return (
+                                <CityCard key={city._id} id={city._id} name={city.name} country={city.country} image={city.image} />
+                            )
+                        })
+                        : <h1 className='text-4xl text-[#F08CAE]'>No cities found</h1>}
             </div>
         </section>
     )

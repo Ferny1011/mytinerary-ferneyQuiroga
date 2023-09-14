@@ -9,6 +9,46 @@ header h1{
 font-family: 'Playfair Display', serif;
 }
 
+.dropDownProfile{
+    position: absolute;
+    top: 4.5rem;
+    right: 2.1rem;
+    width: 120px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #F08CAE;
+    z-index: 1;
+}
+
+.dropDownProfile::before{
+    content: '';
+    position: absolute;
+    top: -0.7rem;
+    right: 1.1rem;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    background-color: #fff;
+    border-left: 1px solid #F08CAE;
+    border-top: 1px solid #F08CAE;
+}
+
+.dropDownProfile li{
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.dropDownProfile li:first-child{
+    cursor: default;
+    color: #0D1F2D;
+}
+
+.dropDownProfile li:hover{
+    color: #0D1F2D;
+}
+
 @media (max-width: 768px) {
     header{
         flex-direction: column;
