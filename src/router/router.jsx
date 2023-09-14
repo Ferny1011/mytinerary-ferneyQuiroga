@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home  from "../pages/Home";
+import Home from "../pages/Home";
 import Main from "../layouts/Main";
 import Cities from "../pages/Cities";
 import CityDetails from "../pages/CityDetails";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import ProtectedRoute from "./ProtectedRoute";
 const Router = createBrowserRouter([
     {
         path: "/",
@@ -20,11 +21,13 @@ const Router = createBrowserRouter([
             },
             {
                 path: "/cities/:id",
-                element: <CityDetails />
+                element:<CityDetails />
             },
             {
                 path: "/signin",
-                element: <SignIn />
+                element: (<ProtectedRoute path={'/'}>
+                    <SignIn />
+                </ProtectedRoute>)
             },
             {
                 path: "/signup",
