@@ -3,12 +3,24 @@ import { Link } from 'react-router-dom'
 import '../styles/Header.css'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+// import { userLoggedOut } from '../store/actions/userActions'
 
 const Header = () => {
 
+    const dispatch = useDispatch()
     const user = useSelector((store) => store.userReducer.user)
     const [openProfile, setOpenProfile] = useState(false)
 
+    // const handleSignOut = async() => {
+    //     try {
+    //         dispatch(userLoggedOut({
+    //             data: user
+    //         }))
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     const links = [
         { title: 'Home', to: '/' },
@@ -45,7 +57,7 @@ const Header = () => {
                         <ul className='flex flex-col gap-4'>
                             <li className='border-b-2 border-[#F08CAE]'>Hi, {user.name}!</li>
                             <li>Settings</li>
-                            <li>Logout</li>
+                            <li onClick={handleSignOut}>Logout</li>
                         </ul>
                     </div>)
                 }

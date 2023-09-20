@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { userLoggedIn } from '../store/actions/userActions';
 
 
 const SignIn = () => {
-    const store = useSelector((store) => store.userReducer)
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
-
+    
     const dispatch = useDispatch();
 
     const handleInput = (event) => {

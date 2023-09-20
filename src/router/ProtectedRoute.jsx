@@ -7,7 +7,6 @@ const ProtectedRoute = ({children, path}) => {
     if(user){
         return <Navigate to={path}/>
     }
-    
     return children
 }
 
