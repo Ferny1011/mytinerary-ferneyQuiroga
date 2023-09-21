@@ -15,9 +15,7 @@ const GoogleSignin = () => {
         const data = {
             token_id: response.credential
         }
-        const userResponse = await axios.post('http://localhost:3000/api/auth/google', data)
-        console.log(userResponse.data.response)
-        
+        const userResponse = await axios.post('http://localhost:3000/api/auth/google', data)        
         dispatch(userLoggedInGoogle(userResponse.data.response))
     }
 

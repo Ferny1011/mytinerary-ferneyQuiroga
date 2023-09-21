@@ -10,10 +10,17 @@ const Header = () => {
 
     const dispatch = useDispatch()
     const user = useSelector((store) => store.userReducer.user)
+    const token = useSelector((store) => store.userReducer.token)
     const [openProfile, setOpenProfile] = useState(false)
 
-    const handleSignOut = () => {
-        dispatch(userLoggedOut())
+    const handleSignOut = async () => {
+        try {
+            dispatch(userLoggedOut({
+                data: token
+            }))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -51,7 +58,6 @@ const Header = () => {
                     openProfile && (<div className='flex flex-col dropDownProfile'>
                         <ul className='flex flex-col gap-4'>
                             <li className='border-b-2 border-[#F08CAE]'>Hi, {user.name}!</li>
-                            <li>Settings</li>
                             <li onClick={handleSignOut}>Logout</li>
                         </ul>
                     </div>)
