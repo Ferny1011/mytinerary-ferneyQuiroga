@@ -4,7 +4,7 @@ import '../styles/Header.css'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-// import { userLoggedOut } from '../store/actions/userActions'
+import { userLoggedOut } from '../store/actions/userActions'
 
 const Header = () => {
 
@@ -12,15 +12,10 @@ const Header = () => {
     const user = useSelector((store) => store.userReducer.user)
     const [openProfile, setOpenProfile] = useState(false)
 
-    // const handleSignOut = async() => {
-    //     try {
-    //         dispatch(userLoggedOut({
-    //             data: user
-    //         }))
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const handleSignOut = () => {
+        dispatch(userLoggedOut())
+    }
+
 
     const links = [
         { title: 'Home', to: '/' },
