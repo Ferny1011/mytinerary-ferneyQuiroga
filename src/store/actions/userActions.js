@@ -84,12 +84,21 @@ export const userLoggedInGoogle = createAsyncThunk("userLoggedInGoogle", async (
     }
 });
 
-export const userLoggedOut = createAsyncThunk("userLoggedOut", async (obj) => {
+export const userLoggedOut = createAsyncThunk("userLoggedOut", async () => {
+    const token = localStorage.getItem('token')
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    }
     try {
-        const { data } = await axios.post('http://localhost:3000/api/auth/signout', obj.data);
-        console.log(data);
+        const { data } = await axios.post('http://localhost:3000/api/auth/signout', {}, { headers });
         localStorage.removeItem('token')
         localStorage.removeItem('user')
+        Swal.fire({
+            title: 'Goodbye!',
+            text: data.message,
+            icon: 'success',
+            confirmButtonText: 'OK'
+        })
         return {
             user: null,
             token: null

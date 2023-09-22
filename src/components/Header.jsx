@@ -10,14 +10,13 @@ const Header = () => {
 
     const dispatch = useDispatch()
     const user = useSelector((store) => store.userReducer.user)
-    const token = useSelector((store) => store.userReducer.token)
     const [openProfile, setOpenProfile] = useState(false)
+
 
     const handleSignOut = async () => {
         try {
-            dispatch(userLoggedOut({
-                data: token
-            }))
+            dispatch(userLoggedOut())
+            setOpenProfile(false)
         } catch (error) {
             console.log(error)
         }
