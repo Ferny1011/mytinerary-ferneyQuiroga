@@ -5,19 +5,22 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { user_token } from './store/actions/userActions'
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    let url = 'http://localhost:3000/api/auth/token'
+    let url = `${API_URL}/auth/token`
     let token = localStorage.getItem('token')
+
     if (token) {
       let configs = { headers: { 'Authorization': `Bearer ${token}` } }
-      axios.post(url, null, configs)
-      .then(response => dispatch(user_token(response.data.user)))
-      .catch(error => console.log(error))
-    }
 
+      axios.post(url, null, configs)
+          .then(response => dispatch(user_token(response.data.user)))
+          .catch(error => console.log(error))
+    }
   }, [])
 
   return (
