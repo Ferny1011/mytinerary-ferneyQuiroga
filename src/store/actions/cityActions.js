@@ -1,9 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const get_cities = createAsyncThunk('get_cities', async () => {
     try {
-        const response = await axios.get('http://localhost:3000/api/cities?name=')
+        const response = await axios.get(`${API_URL}/cities?name=`);
         return {
             cities: response.data.cities
         }
@@ -15,7 +17,7 @@ export const get_cities = createAsyncThunk('get_cities', async () => {
 
 export const filter_cities = createAsyncThunk('filter_cities', async (obj) => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/cities?name=${obj.name}`)
+        const response = await axios.get(`${API_URL}/cities?name=${obj.name}`);
         return {
             cities: response.data.cities
         }

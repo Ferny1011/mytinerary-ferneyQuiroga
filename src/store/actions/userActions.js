@@ -3,9 +3,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Swal from 'sweetalert2'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const userLoggedIn = createAsyncThunk("userLoggedIn", async (obj) => {
     try {
-        const { data } = await axios.post('http://localhost:3000/api/auth/signin', obj.data);
+        const { data } = await axios.post(`${API_URL}/auth/signin`, obj.data);
         localStorage.setItem('token', data.response.token)
         localStorage.setItem('user', JSON.stringify(data.response.user))
         Swal.fire({
@@ -29,19 +31,17 @@ export const userLoggedIn = createAsyncThunk("userLoggedIn", async (obj) => {
         return {
             user: null
         }
-
     }
 });
 
-
 export const userSignUp = createAsyncThunk("userSignUp", async (obj) => {
     try {
-        await axios.post('http://localhost:3000/api/auth/signup', obj.data);
+        await axios.post(`${API_URL}/auth/signup`, obj.data);
         let userCredencials = {
             email: obj.data.email,
             password: obj.data.password
         }
-        const { data } = await axios.post('http://localhost:3000/api/auth/signin', userCredencials);
+        const { data } = await axios.post(`${API_URL}/auth/signin`, userCredencials);
         localStorage.setItem('token', data.response.token)
         localStorage.setItem('user', JSON.stringify(data.response.user))
         Swal.fire({
@@ -90,7 +90,7 @@ export const userLoggedOut = createAsyncThunk("userLoggedOut", async () => {
         'Authorization': `Bearer ${token}`
     }
     try {
-        const { data } = await axios.post('http://localhost:3000/api/auth/signout', {}, { headers });
+        const { data } = await axios.post(`${API_URL}/auth/signout`, {}, { headers });
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         Swal.fire({
@@ -108,7 +108,6 @@ export const userLoggedOut = createAsyncThunk("userLoggedOut", async () => {
     }
 });
 
-
 export const user_token = createAction("user_token", (user) => {
     return {
         payload: {
@@ -116,9 +115,3 @@ export const user_token = createAction("user_token", (user) => {
         }
     }
 });
-
-
-
-
-
-
